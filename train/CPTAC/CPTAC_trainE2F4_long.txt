@@ -1,0 +1,20 @@
+#!/bin/bash
+#SBATCH -J tgnn_26           # Job name
+#SBATCH -o tgnn_26.o%j       # Name of stdout output file
+#SBATCH -e tgnn_26.e%j       # Name of stderr error file
+#SBATCH -p gtx          # Queue (partition) name
+#SBATCH -N 1               # Total # of nodes (must be 1 for serial)
+#SBATCH -n 4               # Total # of mpi tasks (should be 1 for serial)
+#SBATCH -t 24:00:00        # Run time (hh:mm:ss)
+#SBATCH --mail-user=byz@tacc.utexas.edu
+#SBATCH --mail-type=all    # Send email at begin and end of job
+#SBATCH -A ImageDL2       # Allocation name (req'd if you have more than 1)
+
+source activate /work/07034/byz/maverick2/myapps/anaconda3/envs/histo
+module load cuda
+out="/work/07034/byz/maverick2/GNN/models/5_3/"
+i=0.0005
+j=0.00002
+file="${out}E2F4_lr_${i}_l2_${j}.pt"
+echo "lr $i l2 $j"
+python CPTAC_E2F4_AUC.py --lr $i --l2 $j --c 0.0 --mpath $file --e 100
