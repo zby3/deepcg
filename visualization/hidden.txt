@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH -J rep           # Job name
+#SBATCH -o rep.o%j       # Name of stdout output file
+#SBATCH -e rep.e%j       # Name of stderr error file
+#SBATCH -p normal          # Queue (partition) name
+#SBATCH -N 4               # Total # of nodes (must be 1 for serial)
+#SBATCH -n 16               # Total # of mpi tasks (should be 1 for serial)
+#SBATCH -t 4:00:00        # Run time (hh:mm:ss)
+#SBATCH --mail-user=byz@tacc.utexas.edu
+#SBATCH --mail-type=all    # Send email at begin and end of job
+#SBATCH -A Project-Alpha       # Allocation name (req'd if you have more than 1)
+
+source activate /work/07034/byz/stampede2/anaconda3/envs/his
+#module load cuda
+myout="/work/07034/byz/maverick2/CPTAC_LUAD_E2F4_lr_0.00001_l2_0_60"
+for i in `seq 1 5`
+do
+	let x=($i-1)*200000
+	echo "process $i"
+	ibrun python get_rep.py --mpath /work/07034/byz/maverick2/GNN/models/Train_on_TCGA/6_14/E2F4_512_lr_0.00001_l2_0.0.pt_60 --outdir $myout --start $x --step 200000 --index $i --DIM 512 --trained 1
+done
+#ibrun python explanation_multi.py --dir /work/07034/byz/maverick2/GNN/CPTAC_LUAD_part3_CG/ --mpath /work/07034/byz/maverick2/GNN/models/4_16/E2F4_lr_0.0002_l2_0.pt --outdir $str --pat C3N-02155
+#python cellmor.py --start=1 --step=10 --index=100 
