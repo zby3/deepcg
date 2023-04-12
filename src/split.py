@@ -37,5 +37,5 @@ train_path = POS_train_path + NEG_train_path
 
 # save train test path
 with open('/byz/E2F4/path.pkl', 'wb') as f:
-    pickle.dump([train_path, test_path], f)
+    pickle.dump([train_path, test_path,list(POS),list(NEG)], f)
 
