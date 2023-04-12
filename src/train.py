@@ -49,7 +49,7 @@ if __name__ == "__main__":
     for epoch in range(epochs):
         model, _ = train(model, train_loader, optimizer, criterion, device)
 
-        # save model performance per 20 epochs
+        # save model per 20 epochs
         if (epoch + 1) % 20 == 0:
             PATH=os.path.join(args.mpath,'_'+str(epoch)+'_'+str(args.lr)+'_'+str(args.l2)+'.pth')
             torch.save(model.state_dict(), PATH)
