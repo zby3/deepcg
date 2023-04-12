@@ -353,7 +353,7 @@ if __name__ == "__main__":
             loss = criterion(output, labels)
             # Calculate gradients (backpropogation)
             loss.backward()
-            #torch.nn.utils.clip_grad_norm_(model.parameters(), 0.5)
+
             # Adjust parameters based on gradients
             optimizer.step()
             # Add the loss to the training set's rnning loss
