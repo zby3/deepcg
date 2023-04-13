@@ -63,11 +63,14 @@ def train(model,train_loader,optimizer,criterion,device):
     train_loss /= train_len
     return model, train_loss
 
-def pat_auc(model, test_set, device):
+def pat_auc(model, test_loader, device, cohort):
     """
     calculate patient-level AUC on test set
     """
-    test_loader = torch.utils.data.DataLoader(test_set, batch_size=256, shuffle=False, num_workers=8, pin_memory=True)
+    if cohort == 'TCGA':
+        barcode_len = 12
+    else:
+        barcode_len = 9
     pred = []  # tile-level prediction
     with torch.no_grad():
         for inputs, labels in test_loader:
@@ -76,8 +79,9 @@ def pat_auc(model, test_set, device):
             _, predicted = torch.max(outputs.data, 1)
             pred.extend(predicted.tolist())
 
-    df = pd.DataFrame(test_loader.dataset.imgs, columns=['tile', 'target'])  # summarize the result table
-    df['pat'] = df['tile'].apply(lambda x: x.split('/')[-1][0:12])
+    df = pd.DataFrame({'tile': train_loader.dataset.graph_list,
+                       'target': train_loader.dataset.label_list})  # summarize the result table
+    df['pat'] = df['tile'].apply(lambda x: x.split('/')[-1][0:barcode_len])
     df['pred'] = pred
 
     # calculate patient-level score (proportion of POS tiles)

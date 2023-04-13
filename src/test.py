@@ -1,18 +1,16 @@
 import os
 import pickle
-import yaml
 import torch
-import torch.nn as nn
+import yaml
 from dgl.dataloading import GraphDataLoader
 from histocartography.ml import CellGraphModel
-from utils import CGdataset, train, read_label
+from glob import glob
+from tqdm import tqdm
+from utils import CGdatset, read_label, pat_AUC
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--lr', type=float,help='learning rate')
-parser.add_argument('--l2', type=float,help='l2 regularization')
-parser.add_argument('--mpath', type=str,help='directory to save model')
-parser.add_argument('--epoch', type=int,help='epochs')
+parser.add_argument('--mpath', type=str,help='directory of saved models')
 args = parser.parse_args()
 
 # load train, test path
@@ -25,7 +23,7 @@ test_data=CGdataset(test_path,[read_label(tmp, POS, NEG) for tmp in test_path])
 train_loader = GraphDataLoader(train_data, batch_size=256, shuffle=True,num_workers=8,pin_memory=True)
 test_loader = GraphDataLoader(test_data, batch_size=256, shuffle=False,num_workers=8,pin_memory=True)
 
-# load model
+# load model architecture
 device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 config_fname="./config/E2F4.yml"
 with open(config_fname, 'r') as file:
@@ -38,18 +36,11 @@ model = CellGraphModel(
         pretrained=False
     ).to(device)
 
-# define hyperparameters
-criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.l2)
-epochs = args.epoch
+# load model path
+mpath=os.path.join(args.mpath,"*")
+mpath=glob(mpath)
 
-# train
-if __name__ == "__main__":
-    count = 0  # Epoch counter for non-decreasing val_loss
-    for epoch in tqdm(range(epochs)):
-        model, _ = train(model, train_loader, optimizer, criterion, device)
-
-        # save model per 20 epochs
-        if (epoch + 1) % 20 == 0:
-            PATH=os.path.join(args.mpath,'_'+str(epoch)+'_'+str(args.lr)+'_'+str(args.l2)+'.pth')
-            torch.save(model.state_dict(), PATH)
+for i in tqdm(range(len(mpath))):
+    model.load_state_dict(torch.load(mpath[i]))
+    auc=pat_AUC(model, test_loader, device, 'TCGA')
+    print(mpath[i].split('/')[-1],' ',auc)
