@@ -31,9 +31,9 @@ class CGdataset(DGLDataset):
         """number of graphs"""
         return len(self.graph_list)
 
-def read_label(path,poslist,neglist):
+def read_label(path,poslist,neglist,barcode_len):
     label_path=path
-    tmplabel=label_path.split("/")[-1][0:12]
+    tmplabel=label_path.split("/")[-1][0:barcode_len]
     if tmplabel in poslist:
         label=1
     elif tmplabel in neglist:
@@ -63,14 +63,10 @@ def train(model,train_loader,optimizer,criterion,device):
     train_loss /= train_len
     return model, train_loss
 
-def pat_auc(model, test_loader, device, cohort):
+def pat_auc(model, test_loader, device, barcode_len):
     """
     calculate patient-level AUC on test set
     """
-    if cohort == 'TCGA':
-        barcode_len = 12
-    else:
-        barcode_len = 9
     pred = []  # tile-level prediction
     with torch.no_grad():
         for inputs, labels in test_loader:
