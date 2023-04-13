@@ -40,7 +40,15 @@ model = CellGraphModel(
 mpath=os.path.join(args.mpath,"*")
 mpath=glob(mpath)
 
+# evaluate models
+barcode_len = 12 # set 12 for TCGA cohort and 9 for CPTAC cohort
+best_auc = 0.5
+
 for i in tqdm(range(len(mpath))):
     model.load_state_dict(torch.load(mpath[i]))
-    auc=pat_AUC(model, test_loader, device, 'TCGA')
-    print(mpath[i].split('/')[-1],' ',auc)
+    auc=pat_AUC(model, test_loader, device, barcode_len)
+    if auc > best_auc:
+        best_auc = auc
+        best_model = mpath[i].split('/')[-1]
+
+f"{best_model}: {best_auc}"

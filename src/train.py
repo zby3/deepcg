@@ -18,6 +18,7 @@ args = parser.parse_args()
 # load train, test path
 with open('/byz/E2F4/path.pkl','rb') as f:
     train_path, test_path, POS, NEG = pickle.load(f)
+barcode_len = 12
 
 # load data
 train_data=CGdataset(train_path,[read_label(tmp, POS, NEG) for tmp in train_path])
