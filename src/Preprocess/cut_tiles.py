@@ -12,8 +12,8 @@ bg_th = 220
 max_bg_frac = 0.5
 
 # cut each large svs files into small tiles
-tilesdir = "/byz/EBV/TCGA_LUAD_tiles"
-svsdir = '/byz/EBV/TCGA_LUAD_svs/*.svs'
+tilesdir = "/byz/TCGA_LUAD_tiles"
+svsdir = '/byz/TCGA_LUAD_svs/*.svs'
 myinf1 = glob.glob(svsdir)
 
 for i in tqdm(myinf1):
