@@ -3,7 +3,7 @@
 </p>
 <br>
 
-## DeepCG: A cell graph for predicting prognosis in lung adenocarcinoma
+## DeepCG: A cell graph model for predicting prognosis in lung adenocarcinoma
 _**Baoyi Zhang<sup>1</sup>**, Chenyang Li<sup>2</sup>, xxx xx<sup>3</sup>, Jia Wu<sup>4</sup>, xxx xx<sup>5</sup>, Chao Cheng<sup>6,*</sup>_</br></br>
 
 ### Table of Contents  
