@@ -11,8 +11,7 @@ _**Baoyi Zhang<sup>1</sup>**, Chenyang Li<sup>2</sup>, Jia Wu<sup>3</sup>, Jianj
 [Overview](#overview)  
 [Preprocess](#preprocess)  
 [Development](#training)</br>
-[Interpretation](#interpret)</br>
-[Cite](#cite)  
+[Interpretation](#interpret)</br>  
 
 
 <a name="requirements"></a>
@@ -116,9 +115,3 @@ $ python ./Interpretation/feature_compare.py
 ```
 
 <a name="cite"></a>
-### Cite
-```bibtex
-@article{
-}
-
-```
