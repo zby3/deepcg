@@ -29,8 +29,7 @@ _**Baoyi Zhang<sup>1</sup>**, Chenyang Li<sup>2</sup>, Vikramjeet Das<sup>3</sup
 <a name="overview"></a>
 ### Overview
 
-This repository provides the codes for the DeepCG model in our [paper](https://xxx). 
-```src``` souce code
+This repository provides the codes for the DeepCG model in our [paper](https://xxx). In this study, we construct a graph neural network model to predict patient prognosis in LUAD. The workflow includes 3 steps: data preprocessing, model development, and model interpretation. 
 
 <a name="preprocess"></a>
 ### Preprocess
