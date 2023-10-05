@@ -19,17 +19,31 @@ _**Baoyi Zhang<sup>1</sup>**, Chenyang Li<sup>2</sup>, Vikramjeet Das<sup>3</sup
 ### Requirements
 
 * python 3.7
-* numpy >= 1.21.2
-* pandas >= 0.25.1
-* pillow >= 8.3.1
-* openslides >= 3.3
-* torch >= 1.9.1
+* numpy 
+* pandas 
+* pillow 
+* openslides 
+* torch 
 * histocartography
+* dgl
+* h5py
+* matplotlib
+* networkx
+* opencv-python
+* PyYAML
+* scikit-image
+* scikit-learn
+* scipy
+* seaborn
+* tqdm
 
 <a name="overview"></a>
 ### Overview
 
-This repository provides the codes for the DeepCG model in our [paper](https://xxx). In this study, we construct a graph neural network model to predict patient prognosis in LUAD. The workflow includes 3 steps: data preprocessing, model development, and model interpretation. 
+This repository provides the codes for the DeepCG model in our [paper](https://xxx). In this study, we construct a graph neural network model to predict patient prognosis in LUAD. The workflow includes 3 key steps: 
+**1. Label generation:** We employed a previously developed E2F4 signature [paper](https://doi.org/10.1186/s13058-014-0486-7) to stratify patient risks to address the limited survival information quality in publicly available data
+**2. Model construction:** We preprocessed the image data to construct cell graphs capturing cellular patterns in each image and developed a graph neural network model to predict patient prognosis from the graphs
+**3. Model evaluation and interpretation:** We validated the prognostic utility of our model and interpreted it on cell level by characterizing morphology features of cells with high contribution to model output
 
 <a name="preprocess"></a>
 ### Preprocess
