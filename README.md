@@ -24,12 +24,12 @@ _**Baoyi Zhang<sup>1</sup>**, Chenyang Li<sup>2</sup>, Vikramjeet Das<sup>3</sup
 * pillow >= 8.3.1
 * openslides >= 3.3
 * torch >= 1.9.1
-* xxx
+* histocartography
 
 <a name="overview"></a>
 ### Overview
 
-This repository provides the codes for xxx in our [paper](https://xxx). 
+This repository provides the codes for the DeepCG model in our [paper](https://xxx). 
 ```src``` souce code
 
 <a name="preprocess"></a>
