@@ -39,7 +39,7 @@ _**Baoyi Zhang<sup>1</sup>**, Chenyang Li<sup>2</sup>, Jia Wu<sup>3</sup>, Jianj
 <a name="overview"></a>
 ### Overview
 
-This repository provides the codes for the DeepCG model in our [paper](https://xxx). In this study, we construct a graph neural network model to predict patient prognosis in LUAD. The workflow includes 3 key steps: </br>
+This repository provides the codes for the DeepCG model in our [paper](http://doi.org/10.1002/ijc.34901). In this study, we construct a graph neural network model to predict patient prognosis in LUAD. The workflow includes 3 key steps: </br>
 **1. Label generation:** We employed a previously developed E2F4 signature [[paper]](https://doi.org/10.1186/s13058-014-0486-7) to stratify patient risks to address the limited survival information quality in publicly available data </br>
 **2. Model construction:** We preprocessed the image data to construct cell graphs capturing cellular patterns in each image and developed a graph neural network model to predict patient prognosis from the graphs </br>
 **3. Model evaluation and interpretation:** We validated the prognostic utility of our model and interpreted it on cell level by characterizing morphology features of cells with high contribution to model output </br>
